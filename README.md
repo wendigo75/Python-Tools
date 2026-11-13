@@ -9,6 +9,7 @@ A collection of lightweight, standalone Python utility scripts with minimal GUIs
 | Script | Description | Dependencies |
 | :--- | :--- | :--- |
 | [`svg_to_android_icons.py`](#1-svg_to_android_icons) | Converts `.svg` files into a complete set of Android PNG icons (`mdpi` to `xxxhdpi`) or custom-sized PNGs. | `pymupdf`, `pillow` |
+| [`svg2ico.py`](#2-svg2ico) | Converts `.svg` files into multi-resolution Windows `.ico` icons (`16x16` up to `256x256`). | `pymupdf`, `pillow` |
 
 ---
 
@@ -26,6 +27,21 @@ A minimal Tkinter GUI tool to convert vector `.svg` files into high-quality `.pn
   ```bash
   pip install pymupdf pillow
   python svg_to_android_icons.py
+  ```
+
+---
+
+### 2. `svg2ico.py`
+A minimal Tkinter GUI tool to convert vector `.svg` files into multi-resolution Windows `.ico` files.
+
+* **Key Features:**
+  * Generates a single `.ico` file containing 6 standard Windows icon sizes (`16x16`, `32x32`, `48x48`, `64x64`, `128x128`, `256x256`).
+  * Automatically suggests the output path and filename based on the selected `.svg` file.
+  * Preserves native transparency or keeps the original SVG background intact.
+* **Install & Run:**
+  ```bash
+  pip install pymupdf pillow
+  python svg2ico.py
   ```
 
 ---
