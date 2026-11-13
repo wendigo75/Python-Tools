@@ -1,5 +1,5 @@
 # ==============================================================================
-# SVG to Android Icons Converter
+# SVG to Icons Converter
 # Copyright (c) 2026 Wendigo75
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
