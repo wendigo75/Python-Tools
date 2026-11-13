@@ -45,8 +45,8 @@ def inline_nested_svgs(svg_path):
     vettoriali interni nel documento principale, aggirando il limite di PyMuPDF.
     """
     base_dir = os.path.dirname(os.path.abspath(svg_path))
-    ET.register_namespace("", "http://w3.org")
-    ET.register_namespace("xlink", "http://w3.org")
+    ET.register_namespace("", "http://www.w3.org/2000/svg")
+    ET.register_namespace("xlink", "http://www.w3.org/1999/xlink")
 
     tree = ET.parse(svg_path)
     root = tree.getroot()
@@ -61,7 +61,8 @@ def inline_nested_svgs(svg_path):
 
         href = (
             elem.attrib.get("href")
-            or elem.attrib.get("{http://w3.org}href")
+            or elem.attrib.get("{http://www.w3.org/2000/svg}href")
+            or elem.attrib.get("{http://www.w3.org/1999/xlink}href")
         )
         if not href or href.startswith("data:") or href.startswith("http"):
             continue
@@ -96,7 +97,7 @@ def inline_nested_svgs(svg_path):
         scale_y = target_h / vb_h if vb_h else 1.0
 
         # Crea un gruppo <g> posizionato e scalato al posto di <image>
-        g = ET.Element("{http://w3.org}g")
+        g = ET.Element("{http://www.w3.org/2000/svg}g")
         transform = f"translate({x}, {y}) scale({scale_x}, {scale_y})"
         if vb_x != 0 or vb_y != 0:
             transform += f" translate({-vb_x}, {-vb_y})"
