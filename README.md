@@ -10,6 +10,7 @@ A collection of lightweight, standalone Python utility scripts with minimal GUIs
 | :--- | :--- | :--- |
 | [`svg_to_android_icons.py`](#1-svg_to_android_icons) | Converts `.svg` files into a complete set of Android PNG icons (`mdpi` to `xxxhdpi`) or custom-sized PNGs. | `pymupdf`, `pillow` |
 | [`svg2ico.py`](#2-svg2ico) | Converts `.svg` files into multi-resolution Windows `.ico` icons (`16x16` up to `256x256`). | `pymupdf`, `pillow` |
+| [`img2svg.py`](#3-img2svg) | **Image Vectorizer** — Traces and vectorizes raster images into scalable `.svg` files. | `pillow`, `vtracer` |
 
 ---
 
@@ -46,7 +47,22 @@ A minimal Tkinter GUI tool to convert vector `.svg` files into multi-resolution 
 
 ---
 
+### 3. `img2svg.py` (Image Vectorizer)
+A minimal Tkinter GUI tool to trace and vectorize raster images into scalable `.svg` vector files.
 
+* **Key Features:**
+  * Supports multiple raster input formats (`PNG`, `JPG`, `JPEG`, `WEBP`, `BMP`, `GIF`, `ICO`).
+  * Converts images into true vector `<path>` curves using either full-color or black-and-white (`Binary`) tracing modes.
+  * Optional toggle to automatically turn pure white backgrounds transparent before vectorizing.
+  * Automatically suggests the output path and filename based on the selected image.
+* **Install & Run:**
+  ```bash
+  pip install pillow vtracer
+  python img2svg.py
+  ```
+
+  ---
+  
 ## 📄 License
 This repository is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
