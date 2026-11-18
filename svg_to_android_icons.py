@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # ==============================================================================
 # SVG to Android Icons Converter
 # Copyright (c) 2026 Wendigo75
@@ -165,6 +166,21 @@ def convert_svg_to_png(svg_path, out_path, width, height, transparent_bg=True):
         white_bg = Image.new("RGBA", temp_img.size, (255, 255, 255, 255))
         final_img = Image.alpha_composite(white_bg, temp_img).convert("RGB")
         final_img.save(out_path, "PNG")
+def create_adaptive_foreground(svg_path, out_path, transparent_bg=True):
+    os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
+    merged_svg_bytes = inline_nested_svgs(svg_path)
+    canvas_size = 432
+    icon_size = 264
+    png_bytes = cairosvg.svg2png(
+        bytestring=merged_svg_bytes,
+        output_width=icon_size,
+        output_height=icon_size,
+    )
+    icon_img = Image.open(io.BytesIO(png_bytes)).convert("RGBA")
+    canvas = Image.new("RGBA", (canvas_size, canvas_size), (0, 0, 0, 0) if transparent_bg else (255, 255, 255, 255))
+    offset = (canvas_size - icon_size) // 2
+    canvas.paste(icon_img, (offset, offset), icon_img)
+    canvas.save(out_path, "PNG")
 class App:
     def __init__(self, root):
         self.root = root
@@ -266,6 +282,8 @@ class App:
                 for density_name, size in DENSITIES.items():
                     out_file = os.path.join(dest_dir, f"{name}_{density_name}.png")
                     convert_svg_to_png(svg_path, out_file, size, size, transparent_bg)
+                fg_file = os.path.join(dest_dir, f"{name}_foreground.png")
+                create_adaptive_foreground(svg_path, fg_file, transparent_bg)    
                 messagebox.showinfo(
                     "Completato",
                     f"Set Android creato direttamente in:\n{dest_dir}",
